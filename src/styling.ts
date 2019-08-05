@@ -2,7 +2,7 @@
     Author: Malte Rosenbjerg
     License: MIT */
 
-import {NodeType, INxtx, Package} from '../nxtx';
+import {NodeType, INxtx, Package} from '../nxtx-interface';
 declare const nxtx: INxtx;
 
 const style = document.createElement("style");
@@ -20,13 +20,13 @@ const pkg : Package = {
             name: 'set-root-style',
             args: [{ type: NodeType.String, value: 'font-family' }, ...fontFamilies]
         }),
-        'set-local-font-family': (fontName, fontUrl) => {
-            const css = `@font-face { font-family: '${fontName.value}'; src: local('${fontName.value}'), url('${fontUrl.value}'); }`;
+        'set-local-font-family': (fontName, fontPath) => {
+            const css = `@font-face { font-family: '${fontName.value}'; src: local('${fontName.value}'), url('${fontPath.value}'); }`;
             return ([
                 {
                     type: NodeType.Command,
-                    name: 'add-css-root',
-                    args: [ { type: NodeType.Text, value: css} ]
+                    name: 'add-css-rule',
+                    args: [ { type: NodeType.Text, value: css}, { type: NodeType.Number, value: 88 } ]
                 },
                 {
                     type: NodeType.Command,
